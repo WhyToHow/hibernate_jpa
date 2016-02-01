@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<!-- name 用于定义持久化单元的名字
+		transaction-type 指定JPA的事物处理策略 RESOURCE_LOCAL 不支持分布式事务 JTA 支持分布式事务
+	 -->
+	<persistence-unit name="jpa" transaction-type="RESOURCE_LOCAL">
+		<!-- 指定ORM框架接口的实现类    如果项目中有一个实现则可以省略 -->
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<!-- 显式列出实体类 -->
+		<!-- 单独实体  无映射关系 -->
+		<class>com.entity.User</class>
+
+		<!-- 多对一 一对多 -->
+		<class>com.mapping.associatemapping.many2one.Employee</class>
+		<class>com.mapping.associatemapping.one2many.Dept</class>
+		
+		<!-- 一对一-->
+		<class>com.mapping.associatemapping.one2one.IdCard</class>
+		<class>com.mapping.associatemapping.one2one.User2</class>
+
+		<!-- 多对多-->
+		<class>com.mapping.associatemapping.many2many.Developer</class>
+		<class>com.mapping.associatemapping.many2many.Project</class>
+		
+		<properties>
+			<!-- 连接数据库的基本信息 -->
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+			<property name="javax.persistence.jdbc.user" value="scott"/>
+			<property name="javax.persistence.jdbc.password" value="tiger"/>
+			
+			<!-- ORM框架的基本信息  注意hibernate不能省略 -->
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+		</properties>
+	</persistence-unit>
+</persistence>
